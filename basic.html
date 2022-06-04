@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+    <title>PIANO TILES</title>
+    <style>
+        body{
+            background-image: url(bg.jpg);
+        }
+        h1{
+            text-align: center;
+            color: yellow;
+            font-family: 'poppins';
+            font-weight: bold;
+            font-size: 50px;
+        }
+        .container{
+            width: 500px;
+            height: 500px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .item{
+            background-color: #30302f;
+            border: skyblue 1px solid;
+            cursor: pointer;
+        }
+        .button1{
+              background-color: #4CAF50;
+              font-size: 20px;
+              font-weight: bold;
+              font-family: 'poppins';
+              display: inline-block;
+              text-align: center;
+              width: 500px;
+              height: 50px;
+              
+        }
+        .button1:hover{
+            transition-duration: 0.5s;
+            background-color: #f0ffff;
+        }
+        .container1{
+            width: 500px;
+            height: 50px;
+            margin: auto;
+            display: grid;
+        }
+    </style>
+
+</head>
+<body>
+    <h1> PIANO TILES</h1>
+    <div class = 'container'>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+       <div class="item" onclick='checking()'></div>
+    </div><br>
+    <div class="container1">
+       <button class="button1" onclick="starting()">CLICK TO START!</button>
+    </div>
+    <script>
+        let i;
+        const list =[];
+        function get_hover(){
+            i = Math.floor((Math.random() * 16) + 1);
+            var glow = document.getElementsByClassName("item")[i];
+            var text = 'background-color:white;transition: background-color;transition-duration:3s;';
+            glow.style.cssText = text;
+            setTimeout(function(){
+                var text = 'background-color:#30302f;transition: background-color;transition-duration:3s;';
+                glow.style.cssText = text;
+            },800);    
+        }
+        function starting(){
+            get_hover();
+            list.push(i);
+            
+        }
+        function blink(c){
+            var glow = document.getElementsByClassName("item")[list[c]];
+                var text = 'background-color:white;transition: background-color;transition-duration:3s;';
+                glow.style.cssText = text;
+                setTimeout(function(){
+                    var text = 'background-color:#30302f;transition: background-color;transition-duration:3s;';
+                    glow.style.cssText = text;
+                },800);
+                setTimeout(function(){},1200);
+        }
+        function waitforme(ms){
+            return new Promise( resolve => {
+                setTimeout(()=>{resolve('')},ms);
+            })
+        }
+        let value;
+        async function checking(){
+            value=false;
+            var box = document.getElementsByClassName("item")[list[0]];
+            box.addEventListener('click',function(){value = true;});
+            if(value){
+             for(let j=0;j<list.length;j++){
+                 blink(j);
+                 await waitforme(1200);
+             }
+            setTimeout(function(){
+                starting();
+            },100);    
+            }
+            else{
+             alert('GAME OVER');
+            }}
+    </script>
+</body>
+</html>
